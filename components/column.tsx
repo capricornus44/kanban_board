@@ -1,27 +1,40 @@
-import Task from './task'
+'use client'
 
-const tasks = [
-  {
-    id: '1',
-    title: 'Test task',
-    description: 'Test description',
-    status: 'TODO'
-  }
-]
+import { Status, useTaskStore } from '@/lib/task-store'
+import Task from './task'
+import { useMemo } from 'react'
 
 type ColumnProps = {
   title: string
-  status: string
+  status: Status
 }
 
 export default function Column({ title, status }: ColumnProps) {
-  const filteredTasks = tasks.filter(task => task.status === status)
+  const tasks = useTaskStore(state => state.tasks)
+  const draggedTask = useTaskStore(state => state.draggedTask)
+  const updateStatus = useTaskStore(state => state.updateStatus)
+  const dragTask = useTaskStore(state => state.dragTask)
+
+  const filteredTasks = useMemo(
+    () => tasks.filter(task => task.status === status),
+    [tasks, status]
+  )
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!draggedTask) return
+    updateStatus(draggedTask, status)
+    dragTask(null)
+  }
 
   return (
     <section className='h-full flex-1'>
       <h2 className='font-serif text-2xl font-semibold'>{title}</h2>
 
-      <div className='mt-3.5 h-4/5 w-full rounded-xl bg-gray-700/50 p-4'>
+      <div
+        onDrop={handleDrop}
+        onDragOver={e => e.preventDefault()}
+        className='mt-3.5 h-4/5 w-full rounded-xl bg-gray-700/50 p-4'
+      >
         <div className='flex flex-col gap-4'>
           {filteredTasks.map(task => (
             <Task key={task.id} {...task} />

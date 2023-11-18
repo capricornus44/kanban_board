@@ -13,8 +13,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from './ui/textarea'
 import { PlusIcon } from 'lucide-react'
+import { useTaskStore } from '@/lib/task-store'
 
 export default function NewTodoDialog() {
+  const addTask = useTaskStore(state => state.addTask)
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -24,7 +27,7 @@ export default function NewTodoDialog() {
 
     if (typeof title !== 'string' || typeof description !== 'string') return
 
-    console.log('data', { title, description })
+    addTask(title, description)
   }
 
   return (
@@ -57,6 +60,7 @@ export default function NewTodoDialog() {
               id='title'
               name='title'
               placeholder='Todo title...'
+              autoComplete='none'
               className='col-span-4'
             />
           </div>

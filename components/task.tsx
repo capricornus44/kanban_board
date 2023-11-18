@@ -1,15 +1,22 @@
 import { cn } from '@/lib/utils'
 import { TrashIcon } from 'lucide-react'
+import { Status, useTaskStore } from '@/lib/task-store'
 
 type TaskProps = {
+  id: string
   title: string
-  description: string
-  status: string
+  description?: string
+  status: Status
 }
 
-export default function Task({ title, description, status }: TaskProps) {
+export default function Task({ id, title, description, status }: TaskProps) {
+  const removeTask = useTaskStore(state => state.removeTask)
+  const dragTask = useTaskStore(state => state.dragTask)
+
   return (
     <div
+      draggable
+      onDragStart={() => dragTask(id)}
       className={cn(
         'flex cursor-move items-start justify-between rounded-lg bg-white px-3 py-2 text-gray-900',
         {
@@ -24,7 +31,7 @@ export default function Task({ title, description, status }: TaskProps) {
         <p className='text-sm font-light text-gray-500'>{description}</p>
       </div>
 
-      <button className='cursor-pointer'>
+      <button className='cursor-pointer' onClick={() => removeTask(id)}>
         <TrashIcon className='h-5 w-5 text-gray-500 hover:text-rose-400' />
       </button>
     </div>
