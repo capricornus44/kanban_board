@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { TrashIcon, PencilIcon } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 import { Status, useTaskStore } from '@/lib/task-store'
 import EditTodoDialog from './edit-todo-dialog'
 
