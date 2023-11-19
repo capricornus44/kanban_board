@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
-import { TrashIcon } from 'lucide-react'
+import { TrashIcon, PencilIcon } from 'lucide-react'
 import { Status, useTaskStore } from '@/lib/task-store'
+import EditTodoDialog from './edit-todo-dialog'
 
 type TaskProps = {
   id: string
@@ -31,9 +32,18 @@ export default function Task({ id, title, description, status }: TaskProps) {
         <p className='text-sm font-light text-gray-500'>{description}</p>
       </div>
 
-      <button className='cursor-pointer' onClick={() => removeTask(id)}>
-        <TrashIcon className='h-5 w-5 text-gray-500 hover:text-rose-400' />
-      </button>
+      <div className='flex flex-col gap-2'>
+        <button className='cursor-pointer' onClick={() => removeTask(id)}>
+          <TrashIcon className='h-4 w-4 text-gray-500 hover:text-rose-400' />
+        </button>
+
+        <EditTodoDialog
+          id={id}
+          title={title}
+          description={description}
+          status={status}
+        />
+      </div>
     </div>
   )
 }
