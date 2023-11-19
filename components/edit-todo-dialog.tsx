@@ -52,8 +52,9 @@ export default function EditTodoDialog({
 
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogTitle>
+            Status: {status === 'IN_PROGRESS' ? 'IN PROGRESS' : status}
+          </DialogTitle>
         </DialogHeader>
 
         <form
