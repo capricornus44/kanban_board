@@ -45,9 +45,9 @@ export default function EditTodoDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='ghost' size='icon' className='h-4 w-4'>
+        <button className='cursor-pointer'>
           <PencilIcon className='h-4 w-4 text-gray-500 hover:text-emerald-400' />
-        </Button>
+        </button>
       </DialogTrigger>
 
       <DialogContent className='sm:max-w-[425px]'>
