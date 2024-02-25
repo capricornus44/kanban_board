@@ -78,7 +78,7 @@ export default function NewTodoDialog() {
         <DialogFooter>
           <DialogTrigger asChild>
             <Button type='submit' size='sm' form='todo-form'>
-              Add Todo
+              Add New Todo
             </Button>
           </DialogTrigger>
         </DialogFooter>
